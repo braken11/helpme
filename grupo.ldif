@@ -1,0 +1,5 @@
+dn: cn=asir,ou=informatica,dc=andre,dc=local
+objectClass: top
+objectClass: posixGroup
+gidNumber: 10000
+cn: asir

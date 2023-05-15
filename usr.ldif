@@ -1,0 +1,16 @@
+dn: uid=stephen,ou=informatica,dc=andre,dc=local
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+objectClass: person
+cn: stephen
+uid: stephen
+ou: informatica
+uidNumber: 2000
+gidNumber: 10000
+homeDirectory: /home/stephen
+loginShell: /bin/bash
+userPassword: {SSHA}nvFMRMUyIjhwL67Y9PpyY8L3f1WDuvue
+sn: Curry
+mail: stephen@andre.local
+givenName: Stephen

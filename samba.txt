@@ -1,4 +1,0 @@
-smbpasswd -a sambauser
-pdbedit -L
-chmod 755 /carpeta
-chown -hR root:grupo /carpeta

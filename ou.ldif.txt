@@ -1,4 +1,0 @@
-dn: ou=informatica,dc=andre,dc=local
-objectClass: top
-objectClass: organizationalUnit
-ou: informatica

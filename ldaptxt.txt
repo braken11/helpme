@@ -1,5 +1,0 @@
-apt install slapd ldap-utils
-dpkg-reconfigure slapd
-ldapadd -x -D cn=admin,dc=andre,dc=local -W -f ou.ldif
-ldapmodify -x -D cn=admin,dc=andre,dc=local -W -f cambios.ldif
-ldapsearch -xLLL -b "dc=andre,dc=local" uid=stephen sn givenName

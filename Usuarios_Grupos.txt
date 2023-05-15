@@ -1,0 +1,44 @@
+bash
+Copy code
+#!/bin/bash
+
+# 1. Creamos 3 usuarios
+useradd user1
+useradd user2
+useradd user3 -d /home/user_Basura #Con la opcion -d especificamos la carpeta de usuario que tenemos definida. Si lo realizamos con el comando mv, este no realiza las acciones necesarias para que la información del usuario quede en el sistema coherente (entre ellas no modifica la carpeta de usuario en el fichero passwd)
+
+# 2. Creamos 2 grupos
+groupadd user_servicios
+groupadd user_rrhh
+
+# 3. Asignamos al usuario user1 al grupo user_servicios. Recordad que lo que estamos haciendo es modificar el USUARIO, por ello debemos usar el comando que modifique usuarios, para que toda la información quede coherente en el sistema.
+usermod -aG user_servicios user1
+
+# Asignamos al usuario user2 al grupo user_rrhh
+usermod -aG user_rrhh user2
+
+# 4. Modifica el nombre del usuario user1 a user1_1
+usermod -l user1_1 user1
+
+# 5. Modificamos el Nombre del grupo principal del usuario user3. Hasta ahora hemos asignado usuarios a grupos, grupos secundarios. Ahora #estamos tratando el GRUPO PRINCIPAL, pero recordad, estamos modificandolo desde el Usuario.
+usermod -g user3_1 user3
+
+# 6. Modifica el nombre de la carpeta del usuario user2 a user2_pruebas. De nuevo utilizamos el comando que modifica el usuario para que #toda la información del usuario quede coherente en el sistema.
+usermod -d /home/user2_pruebas -m user2
+
+# 7. Crea un árbol de directorios. Utilizando esta sintaxis podemos crear un arbol de directorios. Si os fijais al mimso nivel, si #queremos crear varias carpetas o directorios, debemos incluirlas entre chorchetes.
+mkdir -p /home/user2_pruebas/{erróneas,correctas/{enviar,no enviar,backup}}
+
+# 8. Genera 3 ficheros. Este comando crea ficheros sin contenido con lo que no interactuamos con el usuario.
+touch /home/user2_pruebas/correctas/enviar/archivo1.txt
+touch /home/user2_pruebas/correctas/enviar/archivo2.txt
+touch /home/user2_pruebas/correctas/enviar/archivo3.txt
+
+# Ejecuta la compresión de la carpeta user2_pruebas/correctas/enviar
+tar -czvf /home/user2_pruebas/correctas/backup/backup_$(date +%m%Y).tar.gz /home/user2_pruebas/correctas/backup
+
+# 9. Mueve el backup generado
+mv /home/user2_pruebas/correctas/backup/backup_$(date +%m%Y).tar.gz /home/user2_pruebas/correctas/no enviar/
+
+# 10. Modifica algún valor del campo GECOS del usuario user2
+usermod -c "Nuevo valor GECOS" user2

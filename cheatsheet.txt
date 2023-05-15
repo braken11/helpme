@@ -1,0 +1,55 @@
+dhcp : 
+sudo apt install isc-dhcp-server
+sudo nano /etc/dhcp/dhcpd.conf
+sudo nano /etc/default/isc-dhcp-server (ethernet)
+sudo service isc-dhcp-server restart/status
+
+bind9:
+sudo apt install bind9 bind9-utils
+sudo ufw allow bind9
+sudo nano /etc/bind/named.conf.options
+sudo nano /etc/default/named ( OPTIONS='-u bind -4"; permite solo direcciones ipv4)
+sudo nano /etc/bind/named.conf.local (crear zonas, indicar la ruta y el tipo maestro/esclavo)
+sudo cp /etc/bind/db.local /etc/bind/db.andre.local (copiar la plantilla de configuración de la zona)
+
+ldap:
+sudo apt install slapd ldap-utils
+sudo dpkg-reconfigure slapd (primera opcion >> "NO")
+sudo slapcat (muestra la información de mi dominio "andre.local")
+sudo nano ou.ldif
+			dn: ou=informatica,dc=andre,dc=local
+			objectClass: top
+			objectClass: organizationalUnit
+			ou: informatica
+sudo ldapadd -x -D cn=admin,dc=andre,dc=local -W -f ou.ldif
+sudo cp ou.ldif grupo1.ldif
+sudo nano grupo1.ldif
+			dn: cn=asir,ou=informatica,dc=andre,dc=local
+			objectClass: top
+			objectClass: posixGroup
+			gidNumber: 10000
+			cn: asir
+sudo ldapadd -x -D cn=admin,dc=andre,dc=local -W -f grupo1.ldif
+sudo cp grupo1.ldif usr.ldif
+sudo nano usr.ldif
+				dn: uid=stephen,ou=informatica,dc=andre,dc=local
+				objectClass: top
+				objectClass: posixAccount
+				objectClass: inetOrgPerson
+				objectClass: person
+				cn: stephen
+				uid: stephen
+				ou: informatica
+				uidNumber: 2000
+				gidNumber: 10000
+				homeDirectory: /home/stephen
+				loginShell: /bin/bash
+				userPassword: {SSHA}nvFMRMUyIjhwL67Y9PpyY8L3f1WDuvue
+				sn: Curry
+				mail: stephen@andre.local
+				givenName: Stephen
+
+sudo ldapadd -x -D cn=admin,dc=andre,dc=local -W -f usr.ldif
+sudo slapcat
+
+sudo ldapdelete -x -W -D 'cn=admin,dc=andre,dc=local' 'uid=stephen,ou=informatica,dc=andre,dc=local'

@@ -1,5 +1,0 @@
-#cambiar nombre grupo principal de user3
-usermod -g user3_1 user3
-usermod -d /home/user2_pruebas -m user2
-tar -czvf / tar -xzf
-usermod -c "Nuevo valor GECOS" user2

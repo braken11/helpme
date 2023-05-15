@@ -1,0 +1,4 @@
+dn: uid=stephen,ou=informatica,dc=andre,dc=local
+changetype: modify
+replace: mail
+mail: currystephen@andre.local

@@ -1,7 +1,0 @@
-useradd user3 -d /home/user_Basura
-usermod -aG user_servicios user1 
-usermod -aG sudo user1
-#Modifica el nombre del usuario user1 a user1_1
-usermod -l user1_1 user1
-#Modificamos el Nombre del grupo principal del usuario user3
-usermod -g user3_1 user3
